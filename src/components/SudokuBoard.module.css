@@ -1,0 +1,15 @@
+:root {
+  --board-width: 450px;
+  --board-height: 450px;
+}
+
+.sudoku {
+  width: var(--board-width);
+  height: var(--board-height);
+  margin: 0 auto;
+}
+
+.sudokuInput {
+  width: calc(var(--board-width) / 9);
+  height: calc(var(--board-height) / 9);
+}
