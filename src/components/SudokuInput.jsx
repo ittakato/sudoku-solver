@@ -16,6 +16,7 @@ const SudokuInput = props => {
   let row = Math.floor(props.inputId / 9);
   let col = props.inputId % 9;
 
+  // set placeholder onchange
   const onChangeHandler = event => {
     let inputValue = event.target.value;
 
@@ -33,42 +34,70 @@ const SudokuInput = props => {
       return;
     }
 
-    const sudokuCopy = JSON.parse(JSON.stringify(currentSudoku));
-
-    sudokuCopy[row][col] = inputValue;
-
-    const sudokuCopy2 = JSON.parse(JSON.stringify(sudokuCopy));
-
-    //Check if input value is valid using isValid
-    if (!isValid(sudokuCopy, inputValue, row, col)) {
-      console.log('not valid');
-      return;
+    if (inputValue !== '0') {
+      setPlaceholderValue(inputValue);
     }
-
-    //Check if input value is valid using solve
-    if (!solveSudoku(sudokuCopy)) {
-      console.log('not solvable');
-      return;
-    }
-    
-    //Check if sudokuCopy is finished
-    if (sudokuIsSolved(sudokuCopy2)) {
-      // Do something for finishing.
-      console.log("Finished Sudoku");
-    }
-
-
-    setCurValue(inputValue);
   };
 
-  const onKeyDownHandler = (event) => {
+  // Do the below
+  const onKeyDownHandler = event => {
     const x = event.keyCode;
-    
+
     // 27 is ESC key.
     if (x === 27) {
       event.target.blur();
     }
-  }
+    // 13 is Enter key.
+    else if (x === 13) {
+      let inputValue = placeholderValue;
+
+      if (!isNaN(inputValue)) {
+        inputValue = parseInt(inputValue);
+      } else {
+        return;
+      }
+
+      if (!Number.isInteger(inputValue)) {
+        return;
+      }
+
+      if (inputValue <= 0 || inputValue >= 10) {
+        return;
+      }
+
+      const sudokuCopy = JSON.parse(JSON.stringify(currentSudoku));
+
+      sudokuCopy[row][col] = inputValue;
+
+      const sudokuCopy2 = JSON.parse(JSON.stringify(sudokuCopy));
+
+      //Check if input value is valid using isValid
+      if (!isValid(sudokuCopy, inputValue, row, col)) {
+        console.log('not valid');
+        setPlaceholderValue('');
+        return;
+      }
+
+      //Check if input value is valid using solve
+      if (!solveSudoku(sudokuCopy)) {
+        console.log('not solvable');
+        setPlaceholderValue('');
+        return;
+      }
+
+      //Check if sudokuCopy is finished
+      if (sudokuIsSolved(sudokuCopy2)) {
+        // Do something for finishing.
+        console.log('Finished Sudoku');
+      }
+
+      setCurValue(inputValue);
+    }
+    // 46 is del key.
+    else if (x == 46) {
+      setPlaceholderValue('');
+    }
+  };
 
   useEffect(() => {
     if (!currentSudoku) return;
