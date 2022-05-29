@@ -89,3 +89,37 @@ const printBoard = board => {
     console.log(output);
   }
 };
+
+// Animation
+const solveSudokuWithAnimationsHelper = (board, animations=[]) => {
+let find = findEmpty(board);
+  if (!find) {
+    return true;
+  }
+
+  let i = find[0]; // row
+  let j = find[1]; // col
+
+  for (let num = 1; num <= 9; num++) { // All the options 1-9
+    if (isValid(board, num, i, j)) {
+      board[i][j] = num; // This info is necessary
+      animations.push([i,j,num]); // color num to green
+      if (solveSudokuWithAnimationsHelper(board, animations)) {
+        return true;
+      }
+      board[i][j] = 0;    // This info is also necessary
+      animations.push([i,j,0]); // color 0 to red
+    }
+  }
+
+  return false;
+
+}
+
+export const solveSudokuWithAnimations = (board) => {
+  const animations = [];
+  
+  solveSudokuWithAnimationsHelper(board, animations)
+
+  return animations;  
+};
