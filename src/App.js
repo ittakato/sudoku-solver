@@ -9,32 +9,15 @@ import SolveButton from './components/SolveButton';
 import Timer from './components/Timer/Timer';
 import MistakeIcon from './components/MistakeIcon';
 
-const solve = () => {
-  const axios = require('axios');
-
-  const options = {
-    method: 'POST',
-    url: 'https://solve-sudoku.p.rapidapi.com/',
-    headers: {
-      'content-type': 'application/json',
-      'X-RapidAPI-Host': 'solve-sudoku.p.rapidapi.com',
-      'X-RapidAPI-Key': '3dfd275bd9msh836165a39bd0e1fp1513cajsn8ea62c98af71',
-    },
-    data: '{"puzzle":"2.............62....1....7...6..8...3...9...7...6..4...4....8....52.............3"}',
-  };
-
-  axios
-    .request(options)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
-};
+import { solveSudokuWithAnimations, solveSudoku } from './utility/solveSudoku';
 
 const App = () => {
-  const { numberOfMistakes, setNumberOfMistakes } = useContext(SudokuContext);
+  const {
+    numberOfMistakes,
+    setNumberOfMistakes,
+    currentSudoku,
+    setCurrentSudoku,
+  } = useContext(SudokuContext);
 
   const mistakeIcons = [];
   if (numberOfMistakes < 5) {
@@ -42,6 +25,38 @@ const App = () => {
       mistakeIcons.push(<MistakeIcon style={{ marginRight: '5px' }} />);
     }
   }
+
+  const solveButtonOnClickHandler = () => {
+    const sudokuCopy = JSON.parse(JSON.stringify(currentSudoku));
+    const sudokuCopy2 = JSON.parse(JSON.stringify(currentSudoku));
+
+    if (!solveSudoku(sudokuCopy2)) {
+      // Do something (like an alert/flash to say board cannot be solved).
+      console.log('Board cannot be solved');
+      return;
+    }
+
+    const animations = solveSudokuWithAnimations(sudokuCopy);
+
+    for (let i = 0; i < animations.length; i++) {
+      const inputBoxes = document.querySelectorAll('#sudoku > input');
+      const [row, col, num] = animations[i];
+
+      // grab the element with (key = row*9+col)
+      const inputBox = inputBoxes[row * 9 + col];
+      setTimeout(() => {
+        if (num === 0) {
+          // red
+          inputBox.style.border = '1.5px solid #ea1717';
+          inputBox.value = num;
+        } else {
+          // green
+          inputBox.style.border = '1.5px solid #31ee44';
+          inputBox.value = num;
+        }
+      }, i * 75);
+    }
+  };
 
   return (
     <div className="App">
@@ -58,7 +73,7 @@ const App = () => {
         )}
         {numberOfMistakes >= 5 ? ` : ${numberOfMistakes}` : mistakeIcons}
       </div>
-      <SolveButton onClick={solve}>Solution</SolveButton>
+      <SolveButton onClick={solveButtonOnClickHandler}>Solution</SolveButton>
       <Timer />
     </div>
   );
