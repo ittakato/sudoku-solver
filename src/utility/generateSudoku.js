@@ -152,8 +152,6 @@ export const generateSudoku = (K = 20) => {
 
   fillValues(mat, N, SRN, K);
 
-  printSudoku(mat, N);
-
   return mat;
 };
 

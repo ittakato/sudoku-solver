@@ -1,15 +1,21 @@
 :root {
-  --board-width: 450px;
-  --board-height: 450px;
+  --board-width: 80vh;
+  --board-height: 80vh;
+  --max-board-width: 700px;
+  --max-board-height: 700px;
 }
 
 .sudoku {
   width: var(--board-width);
   height: var(--board-height);
+  max-width: var(--max-board-width);
+  max-height: var(--max-board-height);
   margin: 0 auto;
 }
 
 .sudokuInput {
   width: calc(var(--board-width) / 9);
   height: calc(var(--board-height) / 9);
+  max-width: calc(var(--max-board-width) / 9);
+  max-height: calc(var(--max-board-height) / 9);
 }

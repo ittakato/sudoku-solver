@@ -1,8 +1,9 @@
 .timerContainer {
   margin-top: 20px;
+  margin-right: 10px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   position: relative;
   gap: 15px;
@@ -33,11 +34,7 @@
   width: auto;
 }  
 
-
 .timerContents {
-  position: absolute;
-  top: -4px;
-  right: 0;
   font-size: 28px;
 }
 

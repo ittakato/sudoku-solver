@@ -4,25 +4,27 @@ import SudokuInput from './SudokuInput';
 import styles from './SudokuBoard.module.css';
 
 import { SudokuContext } from '../contexts/sudoku.context';
-import 
+import { generateSudoku } from '../utility/generateSudoku';
 
-const board = [
-  [7, 8, 0, 4, 0, 0, 1, 2, 0],
-  [6, 0, 0, 0, 7, 5, 0, 0, 9],
-  [0, 0, 0, 6, 0, 1, 0, 7, 8],
-  [0, 0, 7, 0, 4, 0, 2, 6, 0],
-  [0, 0, 1, 0, 5, 0, 9, 3, 0],
-  [9, 0, 4, 0, 6, 0, 0, 0, 5],
-  [0, 7, 0, 3, 0, 0, 0, 1, 2],
-  [1, 2, 0, 0, 0, 7, 4, 0, 0],
-  [0, 4, 9, 2, 0, 6, 0, 0, 7],
-];
+// const board = [
+//   [7, 8, 0, 4, 0, 0, 1, 2, 0],
+//   [6, 0, 0, 0, 7, 5, 0, 0, 9],
+//   [0, 0, 0, 6, 0, 1, 0, 7, 8],
+//   [0, 0, 7, 0, 4, 0, 2, 6, 0],
+//   [0, 0, 1, 0, 5, 0, 9, 3, 0],
+//   [9, 0, 4, 0, 6, 0, 0, 0, 5],
+//   [0, 7, 0, 3, 0, 0, 0, 1, 2],
+//   [1, 2, 0, 0, 0, 7, 4, 0, 0],
+//   [0, 4, 9, 2, 0, 6, 0, 0, 7],
+// ];
+
+// Change argument to change difficulty
+const board = generateSudoku(40);
 
 const SudokuBoard = () => {
   const sudokuInputs = [];
 
   const { currentSudoku, setCurrentSudoku } = useContext(SudokuContext);
-
 
   useEffect(() => {
     setCurrentSudoku(board);

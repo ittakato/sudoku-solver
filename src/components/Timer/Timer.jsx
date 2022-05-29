@@ -48,9 +48,9 @@ const Timer = () => {
 
   return (
     <div className={styles.timerContainer}>
-      <button onClick={startTimer}>Start</button>
-      <button onClick={stopTimer}>Stop</button>
-      <button onClick={resetTimer}>Reset</button>
+      <button onClick={startTimer}>Start Timer</button>
+      <button onClick={stopTimer}>Stop Timer</button>
+      <button onClick={resetTimer}>Reset Timer</button>
       <h1 className={styles.timerContents}>
         Time: &nbsp;
         {hours === 0 ? '' : '0' + hours + ':'}

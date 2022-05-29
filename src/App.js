@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 import './App.css';
 
@@ -6,10 +6,14 @@ import { SudokuContext } from './contexts/sudoku.context';
 
 import SudokuBoard from './components/SudokuBoard';
 import SolveButton from './components/SolveButton';
+import NewSudokuButton from './components/NewSudokuButton';
 import Timer from './components/Timer/Timer';
 import MistakeIcon from './components/MistakeIcon';
+import DifficultySelector from './components/DifficultySelector';
 
 import { solveSudokuWithAnimations, solveSudoku } from './utility/solveSudoku';
+
+import { generateSudoku } from './utility/generateSudoku';
 
 const App = () => {
   const {
@@ -17,6 +21,8 @@ const App = () => {
     setNumberOfMistakes,
     currentSudoku,
     setCurrentSudoku,
+    difficulty,
+    setDifficulty,
   } = useContext(SudokuContext);
 
   const mistakeIcons = [];
@@ -25,6 +31,32 @@ const App = () => {
       mistakeIcons.push(<MistakeIcon style={{ marginRight: '5px' }} />);
     }
   }
+
+  const disableButtonsAndSelect = timeout => {
+    const solveButton = document.querySelector('#solve-button');
+    const newSudokuButton = document.querySelector('#new-sudoku-button');
+    const optionsSelector = document.querySelector('#difficulty-selector');
+
+    solveButton.disabled = true;
+    newSudokuButton.disabled = true;
+    optionsSelector.disabled = true;
+
+    setTimeout(() => {
+      // solveButton.disabled = false;
+      newSudokuButton.disabled = false;
+      optionsSelector.disabled = false;
+    }, timeout);
+  };
+
+  const enableButtonsAndSelect = () => {
+    const solveButton = document.querySelector('#solve-button');
+    const newSudokuButton = document.querySelector('#new-sudoku-button');
+    const optionsSelector = document.querySelector('#difficulty-selector');
+
+    solveButton.disabled = false;
+    newSudokuButton.disabled = false;
+    optionsSelector.disabled = false;
+  };
 
   const solveButtonOnClickHandler = () => {
     const sudokuCopy = JSON.parse(JSON.stringify(currentSudoku));
@@ -38,6 +70,7 @@ const App = () => {
 
     const animations = solveSudokuWithAnimations(sudokuCopy);
 
+    // Animation Here
     for (let i = 0; i < animations.length; i++) {
       const inputBoxes = document.querySelectorAll('#sudoku > input');
       const [row, col, num] = animations[i];
@@ -54,8 +87,58 @@ const App = () => {
           inputBox.style.border = '1.5px solid #31ee44';
           inputBox.value = num;
         }
-      }, i * 75);
+      }, i * 15);
     }
+
+    disableButtonsAndSelect(animations.length * 15);
+  };
+
+  const generateSudokuHandler = () => {
+    const board = generateSudoku(difficulty); // change difficulty here
+    setCurrentSudoku(board);
+
+    // Fix color and placeholders
+    const inputBoxes = document.querySelectorAll('#sudoku > input');
+    for (const inputBox of inputBoxes) {
+      inputBox.style.border = '1px solid #777';
+      inputBox.placeholder = '';
+    }
+
+    // Reset mistakes
+    setNumberOfMistakes(0);
+
+    // enable buttons
+    enableButtonsAndSelect();
+  };
+
+  const difficultyChangeHandler = event => {
+    const difficultyName = event.target.value;
+    let difficultyValue;
+
+    if (difficultyName === 'easy') {
+      difficultyValue = 40;
+    } else if (difficultyName === 'medium') {
+      difficultyValue = 45;
+    } else {
+      difficultyValue = 50;
+    }
+
+    setDifficulty(difficultyValue);
+
+    // generate new sudoku
+    const board = generateSudoku(difficultyValue);
+    setCurrentSudoku(board);
+    const inputBoxes = document.querySelectorAll('#sudoku > input');
+    for (const inputBox of inputBoxes) {
+      inputBox.style.border = '1px solid #777';
+      inputBox.placeholder = '';
+    }
+
+    // reset mistakes
+    setNumberOfMistakes(0);
+
+    // enable buttons
+    enableButtonsAndSelect();
   };
 
   return (
@@ -74,6 +157,10 @@ const App = () => {
         {numberOfMistakes >= 5 ? ` : ${numberOfMistakes}` : mistakeIcons}
       </div>
       <SolveButton onClick={solveButtonOnClickHandler}>Solution</SolveButton>
+      <NewSudokuButton onClick={generateSudokuHandler}>
+        New Sudoku
+      </NewSudokuButton>
+      <DifficultySelector onChange={difficultyChangeHandler} />
       <Timer />
     </div>
   );

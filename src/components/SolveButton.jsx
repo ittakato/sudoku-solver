@@ -6,6 +6,7 @@ const SolveButton = props => {
       id="solve-button"
       className={styles.solveButton}
       onClick={props.onClick}
+      disabled={props.disabled}
     >
       {props.children}
     </button>
