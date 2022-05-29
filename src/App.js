@@ -1,8 +1,13 @@
+import { useContext } from 'react';
+
 import './App.css';
+
+import { SudokuContext } from './contexts/sudoku.context';
 
 import SudokuBoard from './components/SudokuBoard';
 import SolveButton from './components/SolveButton';
 import Timer from './components/Timer/Timer';
+import MistakeIcon from './components/MistakeIcon';
 
 const solve = () => {
   const axios = require('axios');
@@ -28,17 +33,35 @@ const solve = () => {
     });
 };
 
-function App() {
+const App = () => {
+  const { numberOfMistakes, setNumberOfMistakes } = useContext(SudokuContext);
+
+  const mistakeIcons = [];
+  if (numberOfMistakes < 5) {
+    for (let i = 0; i < numberOfMistakes; i++) {
+      mistakeIcons.push(<MistakeIcon style={{ marginRight: '5px' }} />);
+    }
+  }
+
   return (
     <div className="App">
       <h1 className="title">Sudoku</h1>
       <div className="board-container">
         <SudokuBoard className="board" />
       </div>
+      <div className="mistakes-container">
+        {numberOfMistakes === 0 ? <>&nbsp;</> : ''}
+        {numberOfMistakes >= 5 ? (
+          <MistakeIcon style={{ marginLeft: '5px' }} />
+        ) : (
+          ''
+        )}
+        {numberOfMistakes >= 5 ? ` : ${numberOfMistakes}` : mistakeIcons}
+      </div>
       <SolveButton onClick={solve}>Solution</SolveButton>
       <Timer />
     </div>
   );
-}
+};
 
 export default App;

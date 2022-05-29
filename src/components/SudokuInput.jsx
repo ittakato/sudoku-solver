@@ -7,7 +7,12 @@ import styles from './SudokuInput.module.css';
 import { isValid, solveSudoku, sudokuIsSolved } from '../utility/solveSudoku';
 
 const SudokuInput = props => {
-  const { currentSudoku, setCurrentSudoku } = useContext(SudokuContext);
+  const {
+    currentSudoku,
+    setCurrentSudoku,
+    numberOfMistakes,
+    setNumberOfMistakes,
+  } = useContext(SudokuContext);
 
   const [curValue, setCurValue] = useState(0);
 
@@ -74,6 +79,7 @@ const SudokuInput = props => {
       //Check if input value is valid using isValid
       if (!isValid(sudokuCopy, inputValue, row, col)) {
         console.log('not valid');
+        setNumberOfMistakes(prevNum => prevNum + 1);
         setPlaceholderValue('');
         return;
       }
@@ -81,6 +87,7 @@ const SudokuInput = props => {
       //Check if input value is valid using solve
       if (!solveSudoku(sudokuCopy)) {
         console.log('not solvable');
+        setNumberOfMistakes(prevNum => prevNum + 1);
         setPlaceholderValue('');
         return;
       }
