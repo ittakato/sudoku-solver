@@ -4,6 +4,7 @@ import SudokuInput from './SudokuInput';
 import styles from './SudokuBoard.module.css';
 
 import { SudokuContext } from '../contexts/sudoku.context';
+import 
 
 const board = [
   [7, 8, 0, 4, 0, 0, 1, 2, 0],
@@ -21,6 +22,7 @@ const SudokuBoard = () => {
   const sudokuInputs = [];
 
   const { currentSudoku, setCurrentSudoku } = useContext(SudokuContext);
+
 
   useEffect(() => {
     setCurrentSudoku(board);
