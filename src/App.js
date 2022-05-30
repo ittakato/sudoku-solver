@@ -28,7 +28,9 @@ const App = () => {
   const mistakeIcons = [];
   if (numberOfMistakes < 5) {
     for (let i = 0; i < numberOfMistakes; i++) {
-      mistakeIcons.push(<MistakeIcon style={{ marginRight: '5px' }} />);
+      mistakeIcons.push(
+        <MistakeIcon style={{ marginRight: '5px' }} key={Math.random()} />
+      );
     }
   }
 
@@ -85,7 +87,7 @@ const App = () => {
       setTimeout(() => {
         if (num === 0) {
           // red
-          inputBox.style.border = '3px solid #4dc2f8';
+          inputBox.style.border = '3px solid #787ff6';
           inputBox.value = num;
         } else {
           // green
@@ -157,17 +159,19 @@ const App = () => {
       <div className="mistakes-container">
         {numberOfMistakes === 0 ? <>&nbsp;</> : ''}
         {numberOfMistakes >= 5 ? (
-          <MistakeIcon style={{ marginLeft: '5px' }} />
+          <MistakeIcon style={{ marginLeft: '5px' }} key={Math.random()} />
         ) : (
           ''
         )}
         {numberOfMistakes >= 5 ? ` : ${numberOfMistakes}` : mistakeIcons}
       </div>
-      <SolveButton onClick={solveButtonOnClickHandler}>Solution</SolveButton>
-      <NewSudokuButton onClick={generateSudokuHandler}>
-        New Sudoku
-      </NewSudokuButton>
-      <DifficultySelector onChange={difficultyChangeHandler} />
+      <div className="buttons-container">
+        <DifficultySelector onChange={difficultyChangeHandler} />
+        <SolveButton onClick={solveButtonOnClickHandler}>Solution</SolveButton>
+        <NewSudokuButton onClick={generateSudokuHandler}>
+          New Sudoku
+        </NewSudokuButton>
+      </div>
     </div>
   );
 };

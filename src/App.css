@@ -5,6 +5,14 @@
   font-size: 14px;
 }
 
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+}
+
 body {
   height: 800px;
   background-color: #fff;
@@ -18,11 +26,19 @@ body {
 }
 
 .title {
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
   font-weight: 550;
   font-size: 48px;
   /* color: rgb(90, 90, 90); */
   color: #1cb1f6c8;
+  background: rgb(120, 127, 246);
+  background: linear-gradient(
+    90deg,
+    rgba(120, 127, 246, 1) 45%,
+    rgba(74, 222, 222, 1) 60%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-transform: uppercase;
 }
 
@@ -33,6 +49,7 @@ body {
 .mistakes-container {
   margin-bottom: 10px;
   font-size: 20px;
+  color: #666;
 }
 
 #my-canvas {
@@ -44,7 +61,14 @@ body {
   pointer-events: none;
 }
 
-/* .board {
+.buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
 
-
-} */
+/* DifficultySelector */
+.buttons-container div:nth-child(1) {
+  margin-right: 100px;
+}

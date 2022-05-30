@@ -1,31 +1,39 @@
 .timerContainer {
-  margin-top: 20px;
-  margin-right: 10px;
+  position: relative;
+
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  position: relative;
-  gap: 15px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  /* gap: 15px; */
 }
 
 .timerContents {
-  font-size: 28px;
+  padding-top: 30px;
+  font-size: 20px;
+  color: #787ff6;
 }
 
-/* CSS */
+.timerContentsContainer {
+  width: 100px;
+  margin-right: 245px;
+  margin-left: 10px;
+}
+
+/* Buttons */
 .timerContainer button {
   appearance: button;
-  background-color: #189ad696;
+  background-color: #fff;
   border: solid transparent;
   border-radius: 16px;
   border-width: 0 0 4px;
   box-sizing: border-box;
-  color: #ffffff;
+  color: #787ff6;
   cursor: pointer;
   display: inline-block;
   font-family: 'Inter', sans-serif;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.8px;
   line-height: 20px;
@@ -33,6 +41,7 @@
   outline: none;
   overflow: visible;
   padding: 13px 16px;
+  padding-bottom: 0px;
   text-align: center;
   text-transform: uppercase;
   touch-action: manipulation;
@@ -42,22 +51,7 @@
   -webkit-user-select: none;
   vertical-align: middle;
   white-space: nowrap;
-  width: 150px;
-}
-
-.timerContainer button:after {
-  background-clip: padding-box;
-  background-color: #50c0f4a0;
-  border: solid transparent;
-  border-radius: 16px;
-  border-width: 0 0 4px;
-  bottom: -4px;
-  content: '';
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: -1;
+  width: 85px;
 }
 
 .timerContainer button:main,
