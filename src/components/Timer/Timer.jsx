@@ -1,4 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+
+import { SudokuContext } from '../../contexts/sudoku.context';
 
 import play from '../../images/play.png';
 import pause from '../../images/pause.png';
@@ -10,12 +12,14 @@ const Timer = () => {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [hours, setHours] = useState(0);
-  const [isOn, setIsOn] = useState(true);
+  // const [isOn, setIsOn] = useState(true);
+
+  const { timerIsOn, setTimerIsOn } = useContext(SudokuContext);
 
   useEffect(() => {
     let interval = null;
 
-    if (isOn) {
+    if (timerIsOn) {
       interval = setInterval(() => {
         setSeconds(seconds => seconds + 1);
 
@@ -33,18 +37,18 @@ const Timer = () => {
     }
 
     return () => clearInterval(interval);
-  }, [isOn, minutes, seconds]);
+  }, [timerIsOn, minutes, seconds]);
 
   const startTimer = () => {
-    setIsOn(true);
+    setTimerIsOn(true);
   };
 
   const stopTimer = () => {
-    setIsOn(false);
+    setTimerIsOn(false);
   };
 
   const resetTimer = () => {
-    setIsOn(false);
+    setTimerIsOn(false);
     setSeconds(0);
     setMinutes(0);
     setHours(0);
