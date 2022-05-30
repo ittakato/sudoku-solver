@@ -70,8 +70,13 @@ const App = () => {
 
     const animations = solveSudokuWithAnimations(sudokuCopy);
 
+    const numOfAnimations = animations.length;
+
+    // In miliseconds
+    let animation_speed = 3000 / numOfAnimations; // lower is faster
+
     // Animation Here
-    for (let i = 0; i < animations.length; i++) {
+    for (let i = 0; i < numOfAnimations; i++) {
       const inputBoxes = document.querySelectorAll('#sudoku > input');
       const [row, col, num] = animations[i];
 
@@ -80,17 +85,17 @@ const App = () => {
       setTimeout(() => {
         if (num === 0) {
           // red
-          inputBox.style.border = '1.5px solid #ea1717';
+          inputBox.style.border = '3px solid #4dc2f8';
           inputBox.value = num;
         } else {
           // green
-          inputBox.style.border = '1.5px solid #31ee44';
+          inputBox.style.border = '3px solid #fff';
           inputBox.value = num;
         }
-      }, i * 15);
+      }, i * animation_speed); // animation speed
     }
 
-    disableButtonsAndSelect(animations.length * 15);
+    disableButtonsAndSelect(numOfAnimations * animation_speed);
   };
 
   const generateSudokuHandler = () => {
@@ -100,7 +105,7 @@ const App = () => {
     // Fix color and placeholders
     const inputBoxes = document.querySelectorAll('#sudoku > input');
     for (const inputBox of inputBoxes) {
-      inputBox.style.border = '1px solid #777';
+      inputBox.style.border = '2px solid #fff';
       inputBox.placeholder = '';
     }
 
@@ -130,7 +135,7 @@ const App = () => {
     setCurrentSudoku(board);
     const inputBoxes = document.querySelectorAll('#sudoku > input');
     for (const inputBox of inputBoxes) {
-      inputBox.style.border = '1px solid #777';
+      inputBox.style.border = '2px solid #fff';
       inputBox.placeholder = '';
     }
 
@@ -143,7 +148,9 @@ const App = () => {
 
   return (
     <div className="App">
+      <canvas id="my-canvas" />
       <h1 className="title">Sudoku</h1>
+      <Timer />
       <div className="board-container">
         <SudokuBoard className="board" />
       </div>
@@ -161,7 +168,6 @@ const App = () => {
         New Sudoku
       </NewSudokuButton>
       <DifficultySelector onChange={difficultyChangeHandler} />
-      <Timer />
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
+import ConfettiGenerator from 'confetti-js';
 
 import { SudokuContext } from '../contexts/sudoku.context';
 
@@ -95,13 +96,15 @@ const SudokuInput = props => {
       //Check if sudokuCopy is finished
       if (sudokuIsSolved(sudokuCopy2)) {
         // Do something for finishing.
-        console.log('Finished Sudoku');
+        const confettiSettings = {target: 'my-canvas', respawn: false, max: 300};
+        const confetti = new ConfettiGenerator(confettiSettings);
+        confetti.render();
       }
 
       setCurValue(inputValue);
     }
     // 46 is del key.
-    else if (x == 46) {
+    else if (x === 46) {
       setPlaceholderValue('');
     }
   };

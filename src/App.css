@@ -7,7 +7,8 @@
 
 body {
   height: 800px;
-  background-color: #ced2c2;
+  background-color: #fff;
+  font-family: 'Inter', sans-serif;
 }
 
 .App {
@@ -18,10 +19,11 @@ body {
 
 .title {
   margin-bottom: 15px;
-  font-weight: 400;
+  font-weight: 550;
   font-size: 48px;
-  color: rgb(90, 90, 90);
-  font-family: 'Abril Fatface', cursive;
+  /* color: rgb(90, 90, 90); */
+  color: #1cb1f6c8;
+  text-transform: uppercase;
 }
 
 .board-container {
@@ -31,6 +33,15 @@ body {
 .mistakes-container {
   margin-bottom: 10px;
   font-size: 20px;
+}
+
+#my-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  pointer-events: none;
 }
 
 /* .board {

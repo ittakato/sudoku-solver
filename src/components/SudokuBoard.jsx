@@ -18,8 +18,7 @@ import { generateSudoku } from '../utility/generateSudoku';
 //   [0, 4, 9, 2, 0, 6, 0, 0, 7],
 // ];
 
-// Change argument to change difficulty
-const board = generateSudoku(40);
+const board = generateSudoku(40); // initial difficulty
 
 const SudokuBoard = () => {
   const sudokuInputs = [];
