@@ -9,6 +9,12 @@ export const SudokuContext = createContext({
   setDifficulty: () => null,
   timerIsOn: null,
   setTimerIsOn: () => null,
+  seconds: null,
+  setSeconds: () => null,
+  minutes: null,
+  setMinutes: () => null,
+  hours: null,
+  setHours: () => null,
 });
 
 export const SudokuProvider = ({ children }) => {
@@ -16,6 +22,9 @@ export const SudokuProvider = ({ children }) => {
   const [numberOfMistakes, setNumberOfMistakes] = useState(0);
   const [difficulty, setDifficulty] = useState(40); // 40-Easy, 45-Medium, 50-Hard
   const [timerIsOn, setTimerIsOn] = useState(true);
+  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState(0);
+  const [hours, setHours] = useState(0);
 
   const value = {
     currentSudoku,
@@ -25,7 +34,13 @@ export const SudokuProvider = ({ children }) => {
     difficulty,
     setDifficulty,
     timerIsOn,
-    setTimerIsOn
+    setTimerIsOn,
+    seconds,
+    setSeconds,
+    minutes,
+    setMinutes,
+    hours,
+    setHours,
   };
 
   return (

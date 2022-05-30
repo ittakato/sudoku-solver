@@ -9,12 +9,21 @@ import reset from '../../images/reset.png';
 import styles from './Timer.module.css';
 
 const Timer = () => {
-  const [seconds, setSeconds] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [hours, setHours] = useState(0);
+  // const [seconds, setSeconds] = useState(0);
+  // const [minutes, setMinutes] = useState(0);
+  // const [hours, setHours] = useState(0);
   // const [isOn, setIsOn] = useState(true);
 
-  const { timerIsOn, setTimerIsOn } = useContext(SudokuContext);
+  const {
+    timerIsOn,
+    setTimerIsOn,
+    seconds,
+    setSeconds,
+    minutes,
+    setMinutes,
+    hours,
+    setHours,
+  } = useContext(SudokuContext);
 
   useEffect(() => {
     let interval = null;

@@ -25,6 +25,9 @@ const App = () => {
     setDifficulty,
     timerIsOn,
     setTimerIsOn,
+    setSeconds,
+    setMinutes,
+    setHours,
   } = useContext(SudokuContext);
 
   const mistakeIcons = [];
@@ -63,7 +66,6 @@ const App = () => {
   };
 
   const solveButtonOnClickHandler = () => {
-
     setTimerIsOn(false);
 
     const sudokuCopy = JSON.parse(JSON.stringify(currentSudoku));
@@ -123,7 +125,10 @@ const App = () => {
     enableButtonsAndSelect();
 
     // reset timer
-
+    setTimerIsOn(true);
+    setSeconds(0);
+    setMinutes(0);
+    setHours(0);
   };
 
   const difficultyChangeHandler = event => {
@@ -156,7 +161,10 @@ const App = () => {
     enableButtonsAndSelect();
 
     // reset timer
-    
+    setTimerIsOn(true);
+    setSeconds(0);
+    setMinutes(0);
+    setHours(0);
   };
 
   return (
