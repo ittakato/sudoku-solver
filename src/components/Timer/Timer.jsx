@@ -10,7 +10,7 @@ const Timer = () => {
   const [seconds, setSeconds] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [hours, setHours] = useState(0);
-  const [isOn, setIsOn] = useState(false);
+  const [isOn, setIsOn] = useState(true);
 
   useEffect(() => {
     let interval = null;
@@ -62,7 +62,7 @@ const Timer = () => {
       <button onClick={startTimer}>
         <img src={play} alt="Play Icon" width="25px" />
         <br />
-        Start
+        Resume
       </button>
       <button onClick={stopTimer}>
         <img src={pause} alt="Pause Icon" width="25px" />
