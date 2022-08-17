@@ -66,6 +66,11 @@ const SudokuInput = props => {
       (x === 13 && !window.mobileCheck()) // is desktop
       || (x === 9 && window.mobileCheck())  // is mobile
       ) {
+      if (window.mobileCheck()) { // is mobile
+        // dont move to the next input
+        event.preventDefault();
+      }
+
       let inputValue = placeholderValue;
 
       if (!isNaN(inputValue)) {
